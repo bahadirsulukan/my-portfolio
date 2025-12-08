@@ -72,11 +72,21 @@ export default function Home() {
                 design, performance optimization, and full-stack development.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm text-slate-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-200">
               <Stat label="Based in" value="Frankfurt, DE" />
               <Stat label="Focus" value="Web • Systems" />
               <Stat label="Currently" value="Building & learning" />
-              <Stat label="Email" value="bahadirsulukan@gmail.com" />
+              <div className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-6 hover:border-white/30 hover:bg-white/12 transition">
+                <p className="text-xs uppercase tracking-[0.2em] font-semibold text-slate-400">
+                  Contact
+                </p>
+                <a
+                  href="mailto:bahadirsulukan@gmail.com"
+                  className="mt-3 text-lg font-bold text-white break-all hover:text-slate-300 transition"
+                >
+                  bahadir@mail.com
+                </a>
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap gap-3 text-sm">
@@ -211,46 +221,34 @@ export default function Home() {
         </Card>
 
         <Card title="Get in touch" eyebrow="Contact">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="space-y-4">
-              <p className="text-lg text-slate-300 leading-relaxed">
-                I&apos;m always interested in hearing about new opportunities,
-                collaborations, and challenging projects. Feel free to reach out!
-              </p>
-              <div className="flex flex-wrap gap-3 text-sm">
-                <a
-                  href="https://www.linkedin.com/in/bahadir-sulukan/"
-                  className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/8 px-5 py-3 font-medium text-slate-200 transition hover:border-white/40 hover:bg-white/15 hover:text-white hover:shadow-md"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  💼 LinkedIn
-                </a>
-                <a
-                  href="https://github.com/bahadirsulukan"
-                  className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/8 px-5 py-3 font-medium text-slate-200 transition hover:border-white/40 hover:bg-white/15 hover:text-white hover:shadow-md"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  🚀 GitHub
-                </a>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-white/20 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 p-8 backdrop-blur">
-              <p className="text-sm uppercase tracking-[0.2em] font-semibold text-slate-400 mb-4">
-                Send me an email
-              </p>
-              <div className="space-y-4">
-                <p className="text-slate-300">
-                  bahadirsulukan@gmail.com
-                </p>
-                <a
-                  href="mailto:bahadirsulukan@gmail.com"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-4 font-bold text-white transition hover:from-blue-700 hover:to-cyan-700 hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
-                >
-                  ✉️ Write Email
-                </a>
-              </div>
+          <div className="flex flex-col gap-8 sm:gap-6">
+            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
+              I&apos;m always interested in hearing about new opportunities,
+              collaborations, and challenging projects. Feel free to reach out!
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="mailto:bahadirsulukan@gmail.com"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/15 px-8 py-4 font-semibold text-white transition hover:border-white/50 hover:bg-white/25 hover:shadow-lg active:scale-95"
+              >
+                ✉️ Email me
+              </a>
+              <a
+                href="https://www.linkedin.com/in/bahadir-sulukan/"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-8 py-4 font-semibold text-slate-200 transition hover:border-white/40 hover:bg-white/15 hover:text-white hover:shadow-lg"
+                target="_blank"
+                rel="noreferrer"
+              >
+                💼 LinkedIn
+              </a>
+              <a
+                href="https://github.com/bahadirsulukan"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-8 py-4 font-semibold text-slate-200 transition hover:border-white/40 hover:bg-white/15 hover:text-white hover:shadow-lg"
+                target="_blank"
+                rel="noreferrer"
+              >
+                🚀 GitHub
+              </a>
             </div>
           </div>
         </Card>
