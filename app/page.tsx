@@ -74,10 +74,10 @@ export default function Home() {
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm text-slate-200/90">
-              <Stat label="Based in" value="Istanbul, TR" />
+              <Stat label="Based in" value="Frankfurt, DE" />
               <Stat label="Focus" value="Web • Systems" />
               <Stat label="Currently" value="Building & learning" />
-              <Stat label="Email" value="you@example.com" />
+              <Stat label="Email" value="bahadirsulukan@gmail.com" />
             </div>
           </div>
           <div className="flex flex-wrap gap-3 text-sm">
