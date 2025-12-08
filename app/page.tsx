@@ -61,7 +61,7 @@ export default function Home() {
           <div className="grid gap-12 lg:grid-cols-[2.5fr_1fr] lg:items-end">
             <div className="space-y-6">
               <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
-                Hi, I&apos;m Bahadır —
+                Hi, I&apos;m Bahadir Sulukan.
                 <span className="block text-slate-300 text-4xl sm:text-5xl lg:text-6xl mt-2 font-semibold">
                   Software Engineer & CS Student
                 </span>
