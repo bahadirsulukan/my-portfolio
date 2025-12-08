@@ -84,7 +84,7 @@ export default function Home() {
                   href="mailto:bahadirsulukan@gmail.com"
                   className="mt-3 text-lg font-bold text-white break-all hover:text-slate-300 transition"
                 >
-                  bahadir@mail.com
+                  bahadirsulukan@gmail.com
                 </a>
               </div>
             </div>
