@@ -53,7 +53,7 @@ const experiences: Experience[] = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-slate-50">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pb-32 pt-20 sm:px-8 lg:px-24">
+      <div className="mx-auto flex w-full max-w-full flex-col gap-20 px-6 pb-32 pt-20 sm:px-12 lg:px-32">
         <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-12 backdrop-blur-xl shadow-2xl">
           <p className="text-xs uppercase tracking-[0.4em] text-slate-400 font-medium">
             Welcome to my portfolio
