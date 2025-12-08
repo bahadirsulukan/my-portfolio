@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Bahadır Sulukan - Software Engineer & CS Student",
-  description: "Software engineer and computer science student crafting clean, modern web experiences. Portfolio showcasing projects in React, Next.js, TypeScript, and full-stack development.",
+  description:
+    "Software engineer and computer science student crafting clean, modern web experiences. Portfolio showcasing projects in React, Next.js, TypeScript, and full-stack development.",
 };
 
 export default function RootLayout({
