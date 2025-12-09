@@ -25,13 +25,6 @@ const projects: Project[] = [
     link: "https://github.com/bahadirsulukan/Cplusplus-Practice",
   },
   {
-    title: "Blog-Website-Project",
-    description:
-      "Personal blog website project built with modern web technologies. Clean, responsive, and accessible web interface created with GitHub Copilot assistance.",
-    stack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-    link: "https://github.com/bahadirsulukan/Blog-Website-Project",
-  },
-  {
     title: "Machine-Learning",
     description:
       "Exploration of machine learning fundamentals and experiments. Includes data analysis, model training, and practical ML applications using Jupyter notebooks.",
