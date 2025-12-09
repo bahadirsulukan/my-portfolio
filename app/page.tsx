@@ -18,24 +18,32 @@ type Experience = {
 
 const projects: Project[] = [
   {
-    title: "Realtime Collaboration Board",
+    title: "Cplusplus-Practice",
     description:
-      "A Figma-inspired canvas with CRDT syncing, presence indicators, and keyboard-first UX.",
-    stack: ["Next.js", "TypeScript", "WebSocket", "Tailwind"],
-    link: "https://github.com/",
+      "Comprehensive collection of C++ algorithms, data structures, and exercises. Includes object-oriented projects, STL, Templates, File I/O, and Exception Handling inspired by university coursework.",
+    stack: ["C++17/20", "Algorithms", "OOP", "STL", "Templates"],
+    link: "https://github.com/bahadirsulukan/Cplusplus-Practice",
   },
   {
-    title: "AI Study Buddy",
+    title: "Blog-Website-Project",
     description:
-      "Personalized learning planner that creates spaced-repetition decks from lecture notes.",
-    stack: ["Next.js", "tRPC", "PostgreSQL", "OpenAI"],
-    link: "https://github.com/",
+      "Personal blog website project built with modern web technologies. Clean, responsive, and accessible web interface created with GitHub Copilot assistance.",
+    stack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    link: "https://github.com/bahadirsulukan/Blog-Website-Project",
   },
   {
-    title: "Systems Toolkit",
+    title: "Machine-Learning",
     description:
-      "CLI + dashboard for profiling algorithms; includes benchmarks, charts, and exports.",
-    stack: ["Rust", "Next.js", "D3.js"],
+      "Exploration of machine learning fundamentals and experiments. Includes data analysis, model training, and practical ML applications using Jupyter notebooks.",
+    stack: ["Python", "Machine Learning", "Jupyter", "Data Science"],
+    link: "https://github.com/bahadirsulukan/Machine-Learning",
+  },
+  {
+    title: "WebBasics",
+    description:
+      "Exploration of modern web technologies and best practices. Focused on building clean, responsive, and accessible web interfaces.",
+    stack: ["HTML", "CSS", "JavaScript", "Web Design"],
+    link: "https://github.com/bahadirsulukan/WebBasics",
   },
 ];
 
@@ -69,154 +77,117 @@ export default function Home() {
       <style>
         {`
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        
         @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-        
         @keyframes glow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
-          }
+          0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.5); }
         }
-        
         @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
         }
-
-        .animate-in {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        .animate-in-left {
-          animation: slideInLeft 0.6s ease-out forwards;
-        }
-
-        .project-card {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .project-card:hover {
-          transform: translateY(-8px);
-        }
-
-        .tech-badge {
-          transition: all 0.2s ease;
-        }
-
-        .tech-badge:hover {
-          transform: scale(1.08);
-          background-color: rgba(139, 92, 246, 0.3);
-          border-color: rgba(139, 92, 246, 0.6);
-        }
-
-        .stat-box {
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .stat-box::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-          transition: left 0.5s;
-        }
-
-        .stat-box:hover::before {
-          left: 100%;
-        }
-
-        .stat-box:hover {
-          transform: translateY(-4px);
-          border-color: rgba(139, 92, 246, 0.4);
-          background: rgba(139, 92, 246, 0.08);
-        }
+        .animate-in { animation: fadeInUp 0.6s ease-out forwards; }
+        .animate-in-left { animation: slideInLeft 0.6s ease-out forwards; }
+        .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .project-card:hover { transform: translateY(-8px); }
+        .tech-badge { transition: all 0.2s ease; }
+        .tech-badge:hover { transform: scale(1.08); background-color: rgba(139, 92, 246, 0.3); border-color: rgba(139, 92, 246, 0.6); }
+        .stat-box { transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .stat-box::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transition: left 0.5s; }
+        .stat-box:hover::before { left: 100%; }
+        .stat-box:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); background: rgba(139, 92, 246, 0.08); }
       `}
       </style>
       <div className="mx-auto flex w-full max-w-full flex-col gap-20 px-6 pb-32 pt-20 sm:px-12 lg:px-32">
         <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-12 backdrop-blur-xl shadow-2xl animate-in">
-          <p className="text-xs uppercase tracking-[0.4em] text-slate-400 font-medium">
+          <div className="flex items-center gap-8 mb-6">
+            <img
+              src="/BS_Foto.jpg"
+              alt="Bahadir Sulukan"
+              className="rounded-full w-40 h-40 border-4 border-purple-500 shadow-lg object-cover"
+            />
+            <div>
+              <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl bg-gradient-to-r from-slate-100 via-purple-300 to-slate-300 bg-clip-text text-transparent">
+                Bahadir Sulukan
+              </h1>
+              <p className="mt-2 text-lg text-slate-300 font-medium">
+                Computer Science Student @ Hochschule Darmstadt | C++ Developer
+                | Startup Builder
+              </p>
+              <div className="flex gap-4 mt-2">
+                <a
+                  href="mailto:bahadirsulukan@gmail.com"
+                  className="text-purple-400 hover:underline"
+                >
+                  bahadirsulukan@gmail.com
+                </a>
+                <span className="text-slate-400">Darmstadt, Germany</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs uppercase tracking-[0.4em] text-slate-400 font-medium mb-2">
             Welcome to my portfolio
           </p>
           <div className="grid gap-12 lg:grid-cols-[2.5fr_1fr] lg:items-end">
             <div className="space-y-6 animate-in-left">
-              <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl bg-gradient-to-r from-slate-100 via-purple-300 to-slate-300 bg-clip-text text-transparent">
-                Hi, I&apos;m Bahadir Sulukan.
-                <span className="block text-slate-300 text-4xl sm:text-5xl lg:text-6xl mt-2 font-semibold">
-                  Software Engineer & CS Student
-                </span>
-              </h1>
-              <p className="max-w-2xl text-lg text-slate-300 leading-relaxed">
-                I blend systems thinking with sharp UI skills. I craft testable,
-                predictable code that scales. My toolkit spans product UI, API
-                design, performance optimization, and full-stack development.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-200">
-              <Stat label="Based in" value="Frankfurt, DE" />
-              <Stat label="Focus" value="Web • Systems" />
-              <Stat label="Currently" value="Building & learning" />
-              <div className="stat-box rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-6">
-                <p className="text-xs uppercase tracking-[0.2em] font-semibold text-slate-400">
-                  Contact
-                </p>
-                <a
-                  href="mailto:bahadirsulukan@gmail.com"
-                  className="mt-3 text-lg font-bold text-white break-all hover:text-purple-300 transition"
-                >
-                  bahadirsulukan@gmail.com
-                </a>
+              <h2 className="text-3xl font-semibold text-purple-300">
+                About Me
+              </h2>
+              <ul className="list-disc ml-6 text-slate-300 text-base space-y-2">
+                <li>
+                  Studying Computer Science (Informatik) at Hochschule Darmstadt
+                  — 6th semester
+                </li>
+                <li>Advanced C++ (algorithms, OOP, software architecture)</li>
+                <li>
+                  Strong foundation in systems programming, software
+                  engineering, IT security
+                </li>
+                <li>Exploring AI, Web Development, Embedded Systems</li>
+                <li>
+                  Passionate about clean code, scalable systems, user-centered
+                  software
+                </li>
+              </ul>
+              <h2 className="text-2xl font-semibold text-purple-300 mt-6">
+                Technical Stack
+              </h2>
+              <div className="flex flex-wrap gap-3 text-sm mt-2">
+                {[
+                  "C++17/20",
+                  "Python",
+                  "HTML",
+                  "CSS",
+                  "JavaScript",
+                  "SQL",
+                  "Linux",
+                  "Git/GitHub",
+                  "Bash",
+                  "UML",
+                  "VS Code",
+                ].map((item, i) => (
+                  <span
+                    key={item}
+                    className="tech-badge rounded-full border border-white/20 bg-white/10 px-5 py-2 text-slate-200 font-medium hover:border-purple-500 transition cursor-default"
+                    style={{ animationDelay: `${i * 0.05}s` }}
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm">
-            {[
-              "TypeScript",
-              "React/Next.js",
-              "Node.js",
-              "PostgreSQL",
-              "Tailwind",
-              "Testing",
-              "Design Systems",
-              "AWS",
-            ].map((item, i) => (
-              <span
-                key={item}
-                className="tech-badge rounded-full border border-white/20 bg-white/10 px-5 py-2 text-slate-200 font-medium hover:border-purple-500 transition cursor-default"
-                style={{ animationDelay: `${i * 0.05}s` }}
-              >
-                {item}
-              </span>
-            ))}
+            <div className="space-y-4">
+              <Stat label="University" value="Hochschule Darmstadt" />
+              <Stat label="Location" value="Darmstadt, Germany" />
+              <Stat label="Current Focus" value="C++, Web, AI, Embedded" />
+              <Stat label="Email" value="bahadirsulukan@gmail.com" />
+            </div>
           </div>
         </header>
 
@@ -348,7 +319,7 @@ export default function Home() {
                 ✉️ Email me
               </a>
               <a
-                href="https://www.linkedin.com/in/bahadir-sulukan/"
+                href="https://linkedin.com/in/bahadirsulukan"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-8 py-4 font-semibold text-slate-200 transition hover:border-purple-400 hover:bg-white/15 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10"
                 target="_blank"
                 rel="noreferrer"

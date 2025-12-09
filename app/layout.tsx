@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bahadır Sulukan - Software Engineer & CS Student",
+  title: "Bahadir Sulukan",
   description:
     "Software engineer and computer science student crafting clean, modern web experiences. Portfolio showcasing projects in React, Next.js, TypeScript, and full-stack development.",
 };
@@ -25,6 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/BS_Icon.png" type="image/png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
