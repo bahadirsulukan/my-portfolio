@@ -475,19 +475,24 @@ function FloatingParticles() {
       opacity: number;
     }> = [];
 
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2,
-      });
-    }
+    const seedParticles = () => {
+      particles.length = 0;
+      for (let i = 0; i < 30; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.6 + 0.6,
+          opacity: Math.random() * 0.35 + 0.15,
+        });
+      }
+    };
+
+    seedParticles();
 
     const animate = () => {
-      ctx.fillStyle = "rgba(15, 23, 42, 0.1)";
+      ctx.fillStyle = "rgba(15, 23, 42, 0.25)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p) => {
@@ -498,7 +503,7 @@ function FloatingParticles() {
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
 
-        ctx.fillStyle = `rgba(139, 92, 246, ${p.opacity})`;
+        ctx.fillStyle = `rgba(168, 85, 247, ${p.opacity})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -512,7 +517,12 @@ function FloatingParticles() {
       canvas.height = window.innerHeight;
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const resetInterval = setInterval(seedParticles, 12000);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearInterval(resetInterval);
+    };
   }, []);
 
   return (
@@ -544,24 +554,33 @@ function CodeRain() {
       .map(() => Math.random() * -100);
 
     const draw = () => {
-      ctx.fillStyle = "rgba(15, 23, 42, 0.05)";
+      ctx.fillStyle = "rgba(15, 23, 42, 0.18)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "rgba(139, 92, 246, 0.1)";
+      ctx.fillStyle = "rgba(168, 85, 247, 0.08)";
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = code[Math.floor(Math.random() * code.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.92) {
           drops[i] = 0;
         }
-        drops[i]++;
+        drops[i] += 1.2;
       }
     };
 
-    const interval = setInterval(draw, 50);
-    return () => clearInterval(interval);
+    const interval = setInterval(draw, 70);
+    const resetInterval = setInterval(() => {
+      for (let i = 0; i < drops.length; i++) {
+        drops[i] = Math.random() * -50;
+      }
+    }, 14000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(resetInterval);
+    };
   }, []);
 
   return (
@@ -572,7 +591,7 @@ function CodeRain() {
   );
 }
 
-// Interactive Cursor Trail Component
+// Interactive Cursor Trail Component (subtle, professional)
 function CursorTrail() {
   useEffect(() => {
     const particles: Array<{
@@ -584,22 +603,23 @@ function CursorTrail() {
     }> = [];
 
     const handleMouseMove = (e: MouseEvent) => {
-      for (let i = 0; i < 3; i++) {
-        particles.push({
-          x: e.clientX,
-          y: e.clientY,
-          vx: (Math.random() - 0.5) * 4,
-          vy: (Math.random() - 0.5) * 4,
-          life: 1,
-        });
-      }
+      particles.push({
+        x: e.clientX,
+        y: e.clientY,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        life: 0.35,
+      });
+
+      // Cap particle count to avoid clutter
+      if (particles.length > 80) particles.shift();
     };
 
     const animate = () => {
       particles.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
-        p.life -= 0.02;
+        p.life -= 0.015;
 
         if (p.life > 0) {
           const div = document.createElement("div");
@@ -607,13 +627,14 @@ function CursorTrail() {
           div.style.pointerEvents = "none";
           div.style.left = p.x + "px";
           div.style.top = p.y + "px";
-          div.style.width = "8px";
-          div.style.height = "8px";
+          div.style.width = "6px";
+          div.style.height = "6px";
           div.style.borderRadius = "50%";
-          div.style.background = `rgba(139, 92, 246, ${p.life * 0.5})`;
-          div.style.zIndex = "999";
+          div.style.background = `rgba(168, 85, 247, ${p.life * 0.35})`;
+          div.style.zIndex = "60";
+          div.style.filter = "blur(1px)";
           document.body.appendChild(div);
-          setTimeout(() => div.remove(), 50);
+          setTimeout(() => div.remove(), 40);
         }
 
         if (p.life <= 0) {
@@ -659,7 +680,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-slate-50 overflow-hidden relative">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-slate-50 overflow-hidden relative custom-cursor">
       <FloatingParticles />
       <CursorTrail />
       <style>
@@ -702,6 +723,8 @@ export default function Home() {
         .shimmer-bg { animation: subtleGlow 8s ease-in-out infinite; }
         .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: neonBorder 3s ease-in-out infinite; }
         .project-card:hover { transform: translateY(-8px); border-color: rgba(139, 92, 246, 0.8) !important; box-shadow: 0 0 30px rgba(139, 92, 246, 0.5) !important; }
+        .custom-cursor { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%23a855f7'/%3E%3C/svg%3E") 12 12, auto; }
+        .custom-cursor a, .custom-cursor button { cursor: pointer; }
         .data-stream-item { animation: dataStream 2s ease-in-out infinite; }
         .tech-badge { transition: all 0.2s ease; }
         .tech-badge:hover { transform: scale(1.08); background-color: rgba(139, 92, 246, 0.3); border-color: rgba(139, 92, 246, 0.6); }
