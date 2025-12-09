@@ -296,10 +296,9 @@ export default function Home() {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
         }
-        @keyframes gradientShift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
         }
         @keyframes hologramGlow {
           0%, 100% { text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3); }
@@ -316,7 +315,7 @@ export default function Home() {
         .animate-in { animation: fadeInUp 0.6s ease-out forwards; }
         .animate-in-left { animation: slideInLeft 0.6s ease-out forwards; }
         .hologram-text { animation: hologramGlow 3s ease-in-out infinite; }
-        .gradient-bg { background-size: 200% 200%; animation: gradientShift 8s ease infinite; }
+        .shimmer-bg { background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); background-size: 1000px 100%; animation: shimmer 6s infinite; }
         .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: neonBorder 3s ease-in-out infinite; }
         .project-card:hover { transform: translateY(-8px); border-color: rgba(139, 92, 246, 0.8) !important; box-shadow: 0 0 30px rgba(139, 92, 246, 0.5) !important; }
         .data-stream-item { animation: dataStream 2s ease-in-out infinite; }
@@ -329,7 +328,7 @@ export default function Home() {
       `}
       </style>
       <div className="mx-auto flex w-full max-w-full flex-col gap-20 px-6 pb-32 pt-20 sm:px-12 lg:px-32 relative z-10">
-        <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-12 backdrop-blur-xl shadow-2xl animate-in relative overflow-hidden">
+        <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-12 backdrop-blur-xl shadow-2xl animate-in relative overflow-hidden shimmer-bg">
           <CodeRain />
           <div className="flex items-center gap-8 mb-6 relative z-20">
             <img
@@ -413,7 +412,7 @@ export default function Home() {
             <div className="space-y-4 relative z-20">
               <Stat label="University" value="Hochschule Darmstadt" />
               <Stat label="Location" value="Darmstadt, Germany" />
-              <Stat label="Current Focus" value="C++, Web, AI, Embedded" />
+              <Stat label="Current Focus" value="C++, AI, Embedded, Web" />
               <Stat label="Email" value="bahadirsulukan@gmail.com" />
             </div>
           </div>
@@ -598,7 +597,7 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <section className="space-y-5 rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl gradient-bg">
+    <section className="space-y-5 rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl shimmer-bg">
       <p className="text-xs uppercase tracking-[0.4em] font-semibold text-slate-400">
         {eyebrow}
       </p>
