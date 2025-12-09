@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 type Project = {
   title: string;
@@ -710,29 +711,29 @@ export default function Home() {
         .stat-box:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); background: rgba(139, 92, 246, 0.08); }
       `}
       </style>
-      <div className="mx-auto flex w-full max-w-full flex-col gap-20 px-6 pb-32 pt-20 sm:px-12 lg:px-32 relative z-10">
-        <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-12 backdrop-blur-xl shadow-2xl animate-in relative overflow-hidden shimmer-bg">
+      <div className="mx-auto flex w-full max-w-full flex-col gap-20 px-4 pb-32 pt-20 sm:px-8 lg:px-32 relative z-10">
+        <header className="flex flex-col gap-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-6 sm:p-12 backdrop-blur-xl shadow-2xl animate-in relative overflow-hidden shimmer-bg">
           <CodeRain />
-          <div className="flex items-center gap-8 mb-6 relative z-20">
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-6 relative z-20">
             <img
               src="/BS_Foto.jpg"
               alt="Bahadir Sulukan"
-              className="rounded-full w-64 h-64 border-4 border-purple-500 shadow-lg object-cover hologram-text flex-shrink-0"
+              className="rounded-full w-40 h-40 sm:w-56 sm:h-56 lg:w-64 lg:h-64 border-4 border-purple-500 shadow-lg object-cover hologram-text flex-shrink-0"
             />
-            <div>
-              <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl bg-gradient-to-r from-slate-100 via-purple-300 to-slate-300 bg-clip-text text-transparent hologram-text">
+            <div className="text-center sm:text-left">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight bg-gradient-to-r from-slate-100 via-purple-300 to-slate-300 bg-clip-text text-transparent hologram-text">
                 {displayedText}
                 {displayedText.length < fullText.length && (
                   <span className="animate-pulse">|</span>
                 )}
               </h1>
-              <p className="mt-2 text-xl text-slate-200 font-medium">
+              <p className="mt-2 text-sm sm:text-lg lg:text-xl text-slate-200 font-medium">
                 Computer Science Student @ Hochschule Darmstadt | C++ Developer
                 | Startup Builder
               </p>
             </div>
           </div>
-          <p className="text-lg uppercase tracking-[0.4em] text-slate-200 font-medium mb-2">
+          <p className="text-sm sm:text-base lg:text-lg uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-200 font-medium mb-2 text-center sm:text-left">
             Welcome to my portfolio
           </p>
           <div className="grid gap-12 lg:grid-cols-[2.5fr_1fr] lg:items-end">
@@ -1050,38 +1051,106 @@ export default function Home() {
           </div>
         </Card>
 
-        <Card title="Get in touch" eyebrow="Contact">
-          <div className="flex flex-col gap-8 sm:gap-6 relative z-10">
-            <p className="text-xl text-slate-200 leading-relaxed max-w-2xl">
-              I&apos;m always interested in hearing about new opportunities,
-              collaborations, and challenging projects. Feel free to reach out!
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="mailto:bahadirsulukan@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl border border-purple-500/50 bg-purple-500/15 px-8 py-4 font-semibold text-purple-300 transition hover:border-purple-400 hover:bg-purple-500/25 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95 transform hover:scale-105"
-              >
-                ✉️ Email me
-              </a>
-              <a
-                href="https://linkedin.com/in/bahadirsulukan"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-8 py-4 font-semibold text-slate-200 transition hover:border-purple-400 hover:bg-white/15 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10"
-                target="_blank"
-                rel="noreferrer"
-              >
-                💼 LinkedIn
-              </a>
-              <a
-                href="https://github.com/bahadirsulukan"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-8 py-4 font-semibold text-slate-200 transition hover:border-purple-400 hover:bg-white/15 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10"
-                target="_blank"
-                rel="noreferrer"
-              >
-                🚀 GitHub
-              </a>
+        <div className="grid gap-8 lg:grid-cols-[1.8fr_1fr] relative z-10">
+          {/* Contact Card */}
+          <Card title="Get in touch" eyebrow="Contact">
+            <div className="flex flex-col justify-between min-h-[220px] relative z-10">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-200 leading-relaxed">
+                I&apos;m always interested in hearing about new opportunities,
+                collaborations, and challenging projects. Feel free to reach
+                out!
+              </p>
+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+                <a
+                  href="mailto:bahadirsulukan@gmail.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-500/50 bg-purple-500/15 px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-sm sm:text-base text-purple-300 transition hover:border-purple-400 hover:bg-purple-500/25 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95 transform hover:scale-105 min-h-[44px]"
+                >
+                  <Image
+                    src="/32px-Gmail_icon_(2020).svg.png"
+                    alt="Gmail"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                  E-Mail
+                </a>
+                <a
+                  href="https://linkedin.com/in/bahadirsulukan"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/8 px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-sm sm:text-base text-slate-200 transition hover:border-purple-400 hover:bg-white/15 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10 min-h-[44px]"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/LI-In-Bug.png"
+                    alt="LinkedIn"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                  LinkedIn
+                </a>
+                <a
+                  href="https://github.com/bahadirsulukan"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/8 px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-sm sm:text-base text-slate-200 transition hover:border-purple-400 hover:bg-white/15 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10 min-h-[44px]"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/github-mark.png"
+                    alt="GitHub"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                  GitHub
+                </a>
+                <a
+                  href="/BahadirSulukan-Cv.pdf"
+                  download
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/50 bg-emerald-500/15 px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-sm sm:text-base text-emerald-300 transition hover:border-emerald-400 hover:bg-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95 transform hover:scale-105 min-h-[44px]"
+                >
+                  📄 Download CV
+                </a>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+
+          {/* Life Motto Card */}
+          <Card title="Life Motto" eyebrow="Philosophy">
+            <div className="flex items-center justify-center min-h-[200px] relative z-10">
+              <div className="space-y-6 w-full">
+                <div className="space-y-3">
+                  <pre className="font-mono text-base sm:text-lg text-slate-200 leading-relaxed">
+                    <span className="text-purple-400">if</span> (
+                    <span className="text-blue-400">sad</span>(){" "}
+                    <span className="text-purple-400">===</span>{" "}
+                    <span className="text-orange-400">true</span>) {"{"}
+                    {"\n"}
+                    {"    "}
+                    <span className="text-blue-400">sad</span>().
+                    <span className="text-green-400">stop</span>();{"\n"}
+                    {"    "}
+                    <span className="text-blue-400">beAwesome</span>();{"\n"}
+                    {"}"}
+                  </pre>
+                </div>
+
+                <div className="pt-2 border-t border-slate-700/30">
+                  <blockquote className="border-l-4 border-purple-500/50 pl-4 py-2 mt-2">
+                    <p className="text-lg sm:text-xl text-slate-200 font-medium leading-relaxed italic">
+                      "Code is like humor. When you have to explain it, it's
+                      bad."
+                    </p>
+                    <footer className="mt-3 text-base text-purple-300 font-semibold">
+                      — Cory House
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );
