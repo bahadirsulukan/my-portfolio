@@ -311,8 +311,7 @@ export default function Home() {
           100% { opacity: 0; transform: translateY(-20px); }
         }
         @keyframes neonBorder {
-          0%, 100% { border-color: rgba(139, 92, 246, 0.6); box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
-          50% { border-color: rgba(139, 92, 246, 1); box-shadow: 0 0 25px rgba(139, 92, 246, 0.8), inset 0 0 10px rgba(139, 92, 246, 0.2); }
+          0%, 100% { border-color: rgba(139, 92, 246, 0.8); box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), inset 0 0 10px rgba(139, 92, 246, 0.2); }
         }
         .animate-in { animation: fadeInUp 0.6s ease-out forwards; }
         .animate-in-left { animation: slideInLeft 0.6s ease-out forwards; }
