@@ -50,9 +50,9 @@ const projects: Project[] = [
 
 const experiences: Experience[] = [
   {
-    role: "Software Engineering Intern",
+    role: "Software Engineering Internship",
     place: "Optade Technologies (Remote)",
-    period: "2025 — Present",
+    period: "01.11.2025 — 22.12.2025",
     focus: [
       "B2Cargo Web App",
       "Optade-Route Web App",
