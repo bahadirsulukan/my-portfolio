@@ -40,6 +40,13 @@ const projects: Project[] = [
     link: "https://github.com/bahadirsulukan/Cplusplus-Practice",
   },
   {
+    title: "Python-Practice",
+    description:
+      "Comprehensive Python programming repository covering fundamental to advanced concepts. Features hands-on implementations of data structures, algorithms, object-oriented programming, and practical projects. Includes extensive work with NumPy, Pandas, Matplotlib for data manipulation and visualization, alongside real-world problem-solving exercises.",
+    stack: ["Python", "NumPy", "Pandas", "Matplotlib", "Algorithms"],
+    link: "https://github.com/bahadirsulukan/Python-Practice",
+  },
+  {
     title: "Machine-Learning",
     description:
       "Exploration of machine learning fundamentals and experiments. Includes data analysis, model training, and practical ML applications using Jupyter notebooks.",
