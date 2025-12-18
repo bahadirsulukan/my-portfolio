@@ -116,12 +116,12 @@ function Languages() {
       level: "B1 (Professional)",
       proficiency: 75,
     },
-    {
-      name: "Spanish",
-      flag: "🇪🇸",
-      level: "A2 (Elementary)",
-      proficiency: 40,
-    },
+    // {
+    //   name: "Spanish",
+    //   flag: "🇪🇸",
+    //   level: "A2 (Elementary)",
+    //   proficiency: 25,
+    // },
   ];
 
   return (
