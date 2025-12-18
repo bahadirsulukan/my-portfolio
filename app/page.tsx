@@ -98,13 +98,29 @@ const experiences: Experience[] = [
 // Languages Component
 function Languages() {
   const languages = [
-    { name: "Turkish", flag: "🇹🇷", level: "Native", proficiency: 100 },
-    { name: "German", flag: "🇩🇪", level: "C1 (Fluent)", proficiency: 90 },
+    {
+      name: "Turkish",
+      flag: "🇹🇷",
+      level: "Native",
+      proficiency: 100,
+    },
+    {
+      name: "German",
+      flag: "🇩🇪",
+      level: "C1 (Fluent)",
+      proficiency: 90,
+    },
     {
       name: "English",
       flag: "🇬🇧",
       level: "B1 (Professional)",
       proficiency: 75,
+    },
+    {
+      name: "Spanish",
+      flag: "🇪🇸",
+      level: "A2 (Elementary)",
+      proficiency: 40,
     },
   ];
 
@@ -156,7 +172,7 @@ function Languages() {
       {/* Stats Row */}
       <div className="grid grid-cols-3 gap-3 pt-2 border-t border-slate-700/30">
         <div className="text-center">
-          <p className="text-2xl font-bold text-red-400">3</p>
+          <p className="text-2xl font-bold text-red-400">4</p>
           <p className="text-base text-slate-300 font-medium">Languages</p>
         </div>
         <div className="text-center">
@@ -164,7 +180,7 @@ function Languages() {
           <p className="text-base text-slate-300 font-medium">C1 Level</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-bold text-blue-400">2</p>
+          <p className="text-2xl font-bold text-blue-400">3</p>
           <p className="text-base text-slate-300 font-medium">Professional</p>
         </div>
       </div>
