@@ -1152,7 +1152,7 @@ export default function Home() {
                   GitHub
                 </a>
                 <a
-                  href="/Bahadir_Sulukan_CV_forPortfolio.pdf"
+                  href="/BahadirSulukan_CV.pdf"
                   download
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/50 bg-emerald-500/15 px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-sm sm:text-base text-emerald-300 transition hover:border-emerald-400 hover:bg-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-95 transform hover:scale-105 min-h-[44px]"
                 >
