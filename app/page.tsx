@@ -33,6 +33,20 @@ const projects: Project[] = [
     link: "https://www.b2cargo.com",
   },
   {
+    title: "MediDash",
+    description:
+      "Modern web-based medical practice dashboard for managing patients, appointments, and medical documentation. Features patient management, appointment scheduling, invoice handling, and document upload functionality. Developed collaboratively with a team of 4 contributors.",
+    stack: ["React.js", "JavaScript", "Vite", "CSS", "Document Management"],
+    link: "https://github.com/bahadirsulukan/MediDash",
+  },
+  {
+    title: "Café & Bistro Website Design",
+    description:
+      "Modern and responsive website design for café and bistro businesses. Built from Figma design with TypeScript and Vite, featuring elegant UI components and smooth user experience. Perfect for hospitality industry web presence.",
+    stack: ["TypeScript", "Vite", "CSS", "Figma", "Responsive Design"],
+    link: "https://github.com/bahadirsulukan/Cafebistrowebsitedesign",
+  },
+  {
     title: "Cplusplus-Practice",
     description:
       "Comprehensive collection of C++ algorithms, data structures, and exercises. Includes object-oriented projects, STL, Templates, File I/O, and Exception Handling inspired by university coursework.",
