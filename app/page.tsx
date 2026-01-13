@@ -717,7 +717,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-slate-50 overflow-hidden relative custom-cursor">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-slate-50 overflow-x-hidden relative custom-cursor">
       <FloatingParticles />
       <CursorTrail />
       <style>
@@ -857,100 +857,142 @@ export default function Home() {
           </div>
         </header>
 
-        <section className="grid gap-8 lg:grid-cols-[2fr_1.1fr] relative z-10">
-          <Card title="Selected Projects" eyebrow="Builds">
-            <div className="space-y-6">
-              {projects.map((project, idx) => (
-                <article
-                  key={project.title}
-                  className="project-card group rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-8 hover:border-purple-500/50 hover:bg-white/15 hover:shadow-xl hover:shadow-purple-500/10 relative overflow-hidden"
-                  onMouseEnter={() => setHoveredProject(project.title)}
-                  onMouseLeave={() => setHoveredProject(null)}
-                >
-                  {/* Data Stream Animation */}
-                  {hoveredProject === project.title && (
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="data-stream-item absolute text-purple-400 opacity-20 font-mono text-xs"
-                          style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${i * 0.3}s`,
-                          }}
+        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] items-start relative z-10">
+          <section>
+            <Card title="Projects" eyebrow="Builds">
+              <div className="space-y-6">
+                {projects.map((project, idx) => (
+                  <article
+                    key={project.title}
+                    className="project-card group rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-8 hover:border-purple-500/50 hover:bg-white/15 hover:shadow-xl hover:shadow-purple-500/10 relative overflow-hidden"
+                    onMouseEnter={() => setHoveredProject(project.title)}
+                    onMouseLeave={() => setHoveredProject(null)}
+                  >
+                    {/* Data Stream Animation */}
+                    {hoveredProject === project.title && (
+                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        {[0, 1, 2, 3, 4].map((i) => (
+                          <div
+                            key={i}
+                            className="data-stream-item absolute text-purple-400 opacity-20 font-mono text-xs"
+                            style={{
+                              left: `${Math.random() * 100}%`,
+                              top: `${Math.random() * 100}%`,
+                              animationDelay: `${i * 0.3}s`,
+                            }}
+                          >
+                            &lt;/&gt;
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div className="flex items-start justify-between gap-6 relative z-10">
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition">
+                          {project.title}
+                        </h3>
+                        <p className="mt-3 text-lg leading-8 text-slate-200">
+                          {project.description}
+                        </p>
+                      </div>
+                      {project.link ? (
+                        <a
+                          href={project.link}
+                          className="mt-1 whitespace-nowrap rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-300 transition hover:border-purple-400 hover:bg-purple-500/20 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95"
+                          target="_blank"
+                          rel="noreferrer"
                         >
-                          &lt;/&gt;
-                        </div>
+                          View →
+                        </a>
+                      ) : null}
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-2 text-xs text-slate-300">
+                      {project.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="tech-badge rounded-full bg-white/15 px-4 py-2 font-medium border border-white/10 hover:border-purple-500/50"
+                        >
+                          {tech}
+                        </span>
                       ))}
                     </div>
-                  )}
-                  <div className="flex items-start justify-between gap-6 relative z-10">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition">
-                        {project.title}
-                      </h3>
-                      <p className="mt-3 text-lg leading-8 text-slate-200">
-                        {project.description}
-                      </p>
-                    </div>
-                    {project.link ? (
-                      <a
-                        href={project.link}
-                        className="mt-1 whitespace-nowrap rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-300 transition hover:border-purple-400 hover:bg-purple-500/20 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View →
-                      </a>
-                    ) : null}
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-2 text-xs text-slate-300">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="tech-badge rounded-full bg-white/15 px-4 py-2 font-medium border border-white/10 hover:border-purple-500/50"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Card>
+                  </article>
+                ))}
+              </div>
+            </Card>
+          </section>
 
-          <Card title="Experience" eyebrow="Path">
-            <div className="space-y-6">
-              {experiences.map((exp) => (
-                <article
-                  key={exp.role}
-                  className="group rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-8 transition hover:border-purple-500/30 hover:bg-white/12 hover:shadow-lg hover:shadow-purple-500/5"
-                >
-                  <div className="flex items-center justify-between text-lg text-slate-300 font-semibold mb-2">
-                    <span className="text-lg text-purple-300">{exp.place}</span>
-                    <span className="group-hover:text-purple-300 transition">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-2xl font-bold text-white group-hover:text-purple-300 transition">
-                    {exp.role}
-                  </h3>
-                  <div className="mt-5 flex flex-wrap gap-3 text-base text-slate-200">
-                    {exp.focus.map((item) => (
-                      <span
-                        key={item}
-                        className="tech-badge rounded-full bg-white/15 px-5 py-2.5 font-medium border border-white/10 hover:border-purple-500/50"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Card>
-        </section>
+          <section>
+            <Card title="Experience" eyebrow="Path" className="min-h-full flex flex-col">
+              <div className="space-y-8 flex-shrink-0">
+                {experiences.map((exp, idx) => (
+                  <article
+                    key={exp.role}
+                    className="group rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-10 transition hover:border-purple-500/30 hover:bg-white/12 hover:shadow-xl hover:shadow-purple-500/10 relative overflow-hidden"
+                  >
+                    {/* Background decoration */}
+                    <div className="absolute top-0 right-0 text-9xl opacity-5 select-none pointer-events-none">
+                      {idx === 0
+                        ? "💼"
+                        : idx === 1
+                        ? "🎸"
+                        : idx === 2
+                        ? "📐"
+                        : "🛍️"}
+                    </div>
+
+                    <div className="relative z-10 space-y-5">
+                      {/* Role title - most prominent */}
+                      <div>
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white group-hover:text-purple-300 transition leading-tight">
+                          {exp.role}
+                        </h3>
+                      </div>
+
+                      {/* Place and period - clean horizontal layout */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
+                          <span className="text-lg font-semibold text-purple-300 group-hover:text-purple-200 transition">
+                            {exp.place}
+                          </span>
+                        </div>
+                        <div className="hidden sm:block w-px h-5 bg-white/20"></div>
+                        <span className="text-base font-medium text-slate-300 group-hover:text-slate-200 transition">
+                          {exp.period}
+                        </span>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="border-t border-white/10 pt-5"></div>
+
+                      {/* Focus areas - clean grid layout */}
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
+                          Key Responsibilities
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {exp.focus.map((item, itemIdx) => (
+                            <div
+                              key={item}
+                              className="flex items-center gap-2.5 group/item"
+                              style={{ animationDelay: `${itemIdx * 0.05}s` }}
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-purple-400/60 group-hover/item:bg-purple-400 transition"></div>
+                              <span className="text-base font-medium text-slate-200 group-hover/item:text-white transition">
+                                {item}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </Card>
+          </section>
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-2 relative z-10">
           {/* Music Box */}
@@ -1220,13 +1262,15 @@ function Card({
   title,
   eyebrow,
   children,
+  className = "",
 }: {
   title: string;
   eyebrow: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <section className="space-y-5 rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl shimmer-bg">
+    <section className={`space-y-5 rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5 p-10 shadow-2xl shadow-black/50 backdrop-blur-xl shimmer-bg ${className}`}>
       <p className="text-xs uppercase tracking-[0.4em] font-semibold text-slate-400">
         {eyebrow}
       </p>
