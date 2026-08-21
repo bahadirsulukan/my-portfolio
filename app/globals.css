@@ -1,32 +1,125 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+/* ── Base ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --background: #080808;
+  --foreground: #F0EAD6;
+  --gold: #C9A84C;
+  --gold-bright: #FFD700;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── shadcn design tokens, mapped onto the Midnight Black + Gold palette.
+   Tailwind v4 is CSS-first: utilities like bg-muted / text-foreground /
+   ring-ring only exist once they are declared here. Pointing them at the
+   portfolio palette means dropped-in shadcn components inherit the brand
+   instead of arriving in default neutral grey. ── */
+@theme {
+  --color-background: #080808;
+  --color-foreground: #f0ead6;
+  --color-muted: #111111;
+  --color-muted-foreground: #777777;
+  --color-ring: #c9a84c;
+}
+
+/* ── Smooth scroll + navbar offset ── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
+/* Prevent horizontal overflow from slide-in reveals.
+   `clip` (not `hidden`) — hidden would create a scroll container
+   and silently break every position: sticky descendant. */
+html, body {
+  overflow-x: clip;
+}
+
+/* ── Custom scrollbar (Webkit) ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.6);
+}
+
+/* ── Selection color ── */
+::selection {
+  background: rgba(201, 168, 76, 0.25);
+  color: #FFD700;
+}
+
+/* ── prefers-reduced-motion: kill ALL animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Make sure scroll-reveal elements stay visible */
+  .gsap-reveal,
+  .gsap-stagger-child {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Cloud section: heading + orbit pin together while the right column
+   scrolls. Gated on height too — if the block cannot fit under the navbar
+   it must scroll normally rather than stick with its bottom cut off. ── */
+@media (min-width: 1024px) and (min-height: 800px) {
+  .cloud-pin {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+  }
+}
+
+/* Two columns only: the heading sits inside the left one, so the right one
+   starts that much lower and both cards share a top edge. The value is
+   measured at runtime, never hard-coded. Stacked layouts keep it at 0. */
+@media (min-width: 1024px) {
+  .cloud-right {
+    margin-top: var(--cloud-head-h, 0px);
+  }
+}
+
+/* ── Balanced headlines — no orphaned words ── */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* ── Focus visible for accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Shimmer keyframe (kept for compatibility) ── */
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

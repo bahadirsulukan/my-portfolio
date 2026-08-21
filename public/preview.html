@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Design Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080808; color: #F0EAD6; font-family: 'Segoe UI', sans-serif; padding: 40px 24px; }
+  h1 { text-align: center; font-size: 13px; letter-spacing: 0.4em; text-transform: uppercase; color: #555; margin-bottom: 48px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto; }
+
+  .card { background: #0C0C0C; border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; padding: 28px; }
+  .card-label { font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: #555; margin-bottom: 6px; }
+  .card-title { font-size: 20px; font-weight: 800; margin-bottom: 20px;
+    background: linear-gradient(135deg,#C9A84C,#FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── 1. TERMINAL ── */
+  .terminal { background: #050505; border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 20px; font-family: 'Courier New', monospace; font-size: 13px; min-height: 200px; }
+  .terminal-bar { display: flex; gap: 6px; margin-bottom: 16px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #FF5F56; } .dot-y { background: #FFBD2E; } .dot-g { background: #27C93F; }
+  .terminal-line { margin-bottom: 6px; line-height: 1.6; }
+  .prompt { color: #C9A84C; }
+  .cmd { color: #F0EAD6; }
+  .out-ok { color: #4ADE80; }
+  .out-info { color: #60A5FA; }
+  .out-warn { color: #FBBF24; }
+  .cursor { display: inline-block; width: 8px; height: 14px; background: #C9A84C; animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── 2. CI/CD PIPELINE ── */
+  .pipeline { display: flex; align-items: center; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding: 16px 0; }
+  .stage { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+  .stage-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid rgba(201,168,76,0.3); background: #111; position: relative; }
+  .stage-icon.active { border-color: #C9A84C; background: rgba(201,168,76,0.08); box-shadow: 0 0 20px rgba(201,168,76,0.2); animation: stagePulse 2s ease-in-out infinite; }
+  .stage-icon.done { border-color: #4ADE80; background: rgba(74,222,128,0.08); }
+  @keyframes stagePulse { 0%,100%{box-shadow:0 0 10px rgba(201,168,76,0.2)} 50%{box-shadow:0 0 25px rgba(201,168,76,0.5)} }
+  .stage-label { font-size: 11px; color: #777; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; }
+  .stage-status { font-size: 10px; font-weight: 700; }
+  .stage-status.ok { color: #4ADE80; }
+  .stage-status.run { color: #C9A84C; }
+  .stage-status.wait { color: #555; }
+  .arrow { width: 40px; height: 2px; background: linear-gradient(to right, rgba(201,168,76,0.5), rgba(201,168,76,0.2)); flex-shrink: 0; margin: 0 4px; position: relative; top: -16px; }
+  .arrow::after { content: '▶'; position: absolute; right: -8px; top: -7px; color: rgba(201,168,76,0.5); font-size: 12px; }
+  .pipeline-meta { margin-top: 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .meta-item { background: #111; border: 1px solid rgba(201,168,76,0.12); border-radius: 8px; padding: 10px 16px; font-size: 12px; }
+  .meta-item span { color: #C9A84C; font-weight: 700; margin-right: 6px; }
+
+  /* ── 3. ORBIT ── */
+  .orbit-container { position: relative; width: 260px; height: 260px; margin: 0 auto; }
+  .orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 70px; height: 70px; border-radius: 50%;
+    background: linear-gradient(135deg,#C9A84C,#FFD700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #000; text-align: center; line-height: 1.2;
+    box-shadow: 0 0 40px rgba(201,168,76,0.4); z-index: 10; }
+  .orbit-ring { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(201,168,76,0.15); transform: translate(-50%,-50%); }
+  .ring1 { width: 140px; height: 140px; animation: spin 8s linear infinite; }
+  .ring2 { width: 220px; height: 220px; animation: spin 14s linear infinite reverse; }
+  .orbit-icon { position: absolute; width: 36px; height: 36px; border-radius: 8px;
+    background: #111; border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transform: translate(-50%,-50%);
+    animation: counterSpin1 8s linear infinite; }
+  .orbit-icon2 { animation: counterSpin2 14s linear infinite; }
+  @keyframes spin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+  @keyframes counterSpin1 { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(-360deg)} }
+  @keyframes counterSpin2 { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+
+  .ring1-item { position: absolute; }
+  .ring1-item:nth-child(1) { top: 0; left: 50%; }
+  .ring1-item:nth-child(2) { top: 50%; right: 0; }
+  .ring1-item:nth-child(3) { bottom: 0; left: 50%; }
+  .ring1-item:nth-child(4) { top: 50%; left: 0; }
+
+  .ring2-item { position: absolute; }
+  .ring2-item:nth-child(1) { top: 0; left: 50%; }
+  .ring2-item:nth-child(2) { top: 25%; right: 0; }
+  .ring2-item:nth-child(3) { bottom: 25%; right: 0; }
+  .ring2-item:nth-child(4) { bottom: 0; left: 50%; }
+  .ring2-item:nth-child(5) { bottom: 25%; left: 0; }
+
+  .orbit-desc { text-align: center; margin-top: 16px; }
+  .orbit-desc p { color: #666; font-size: 13px; margin-top: 6px; }
+
+  /* ── 4. STATS ── */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-box { background: #111; border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 20px; position: relative; overflow: hidden; }
+  .stat-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right,#C9A84C,transparent); }
+  .stat-num { font-size: 36px; font-weight: 900; background: linear-gradient(135deg,#C9A84C,#FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .stat-label { color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+  .stat-sub { color: #4ADE80; font-size: 11px; margin-top: 6px; font-weight: 600; }
+  .stat-bar { height: 3px; background: #1A1A1A; border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(to right,#C9A84C,#FFD700); animation: fillBar 2s ease-out forwards; }
+  @keyframes fillBar { from{width:0} }
+
+  /* ── CERT ── */
+  .cert-card { background: linear-gradient(135deg, #0F0D07, #1A1500); border: 1px solid rgba(201,168,76,0.35); border-radius: 14px; padding: 24px; display: flex; gap: 20px; align-items: center; margin-top: 12px; }
+  .cert-badge { width: 64px; height: 64px; border-radius: 12px; background: linear-gradient(135deg,#C9A84C,#FFD700); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+  .cert-info h3 { color: #F0EAD6; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .cert-info p { color: #888; font-size: 13px; margin-bottom: 8px; }
+  .cert-tag { display: inline-block; padding: 3px 10px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; font-size: 11px; color: #C9A84C; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>🎨 Design Vorschau — Cloud & DevOps Optionen</h1>
+
+<div class="grid">
+
+  <!-- ── OPTION 1: TERMINAL ── -->
+  <div class="card">
+    <div class="card-label">Option 1</div>
+    <div class="card-title">Terminal Animation</div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span style="margin-left:8px;color:#555;font-size:12px;">bahadir@cloud ~ </span>
+      </div>
+      <div class="terminal-line"><span class="prompt">❯ </span><span class="cmd">docker build -t bahadir/app:latest .</span></div>
+      <div class="terminal-line"><span class="out-ok">✓</span> <span style="color:#555">Successfully built</span> <span style="color:#60A5FA">a3f9c1b2d</span></div>
+      <div class="terminal-line" style="margin-top:8px;"><span class="prompt">❯ </span><span class="cmd">kubectl apply -f k8s/deployment.yaml</span></div>
+      <div class="terminal-line"><span class="out-ok">✓</span> <span style="color:#555">deployment.apps/app</span> <span style="color:#4ADE80">configured</span></div>
+      <div class="terminal-line" style="margin-top:8px;"><span class="prompt">❯ </span><span class="cmd">terraform apply --auto-approve</span></div>
+      <div class="terminal-line"><span class="out-warn">▶</span> <span style="color:#555">aws_instance.web:</span> <span style="color:#FBBF24">Creating...</span></div>
+      <div class="terminal-line"><span class="out-ok">✓</span> <span style="color:#4ADE80">Apply complete! 3 added, 0 changed</span></div>
+      <div class="terminal-line" style="margin-top:8px;"><span class="prompt">❯ </span><span class="cmd">aws s3 sync ./dist s3://my-bucket</span></div>
+      <div class="terminal-line"><span class="out-ok">✓</span> <span style="color:#555">upload:</span> <span style="color:#60A5FA">dist/index.html → s3://my-bucket/index.html</span></div>
+      <div class="terminal-line" style="margin-top:10px;"><span class="prompt">❯ </span><span class="cursor"></span></div>
+    </div>
+    <p style="color:#555;font-size:12px;margin-top:12px;">💡 Commands tippen sich beim Scrollen automatisch ein</p>
+  </div>
+
+  <!-- ── OPTION 2: CI/CD PIPELINE ── -->
+  <div class="card">
+    <div class="card-label">Option 2</div>
+    <div class="card-title">CI/CD Pipeline</div>
+    <div class="pipeline">
+      <div class="stage">
+        <div class="stage-icon done">💻</div>
+        <div class="stage-label">Code</div>
+        <div class="stage-status ok">✓ pushed</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="stage">
+        <div class="stage-icon done">🔨</div>
+        <div class="stage-label">Build</div>
+        <div class="stage-status ok">✓ 1m 12s</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="stage">
+        <div class="stage-icon done">🧪</div>
+        <div class="stage-label">Test</div>
+        <div class="stage-status ok">✓ 48 passed</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="stage">
+        <div class="stage-icon active">🐳</div>
+        <div class="stage-label">Docker</div>
+        <div class="stage-status run">⟳ running</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="stage">
+        <div class="stage-icon" style="border-color:#333">☁️</div>
+        <div class="stage-label">Deploy</div>
+        <div class="stage-status wait">— waiting</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="stage">
+        <div class="stage-icon" style="border-color:#333">🚀</div>
+        <div class="stage-label">Live</div>
+        <div class="stage-status wait">— pending</div>
+      </div>
+    </div>
+    <div class="pipeline-meta">
+      <div class="meta-item"><span>Branch:</span>main</div>
+      <div class="meta-item"><span>Commit:</span>a3f9c1b</div>
+      <div class="meta-item"><span>Duration:</span>2m 34s</div>
+      <div class="meta-item"><span>Status:</span><span style="color:#FBBF24">In Progress</span></div>
+    </div>
+    <p style="color:#555;font-size:12px;margin-top:12px;">💡 Stage-Dots animieren sich nacheinander beim Scrollen</p>
+  </div>
+
+  <!-- ── OPTION 3: ORBIT ── -->
+  <div class="card">
+    <div class="card-label">Option 3</div>
+    <div class="card-title">Cloud Stack Orbit</div>
+    <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+      <div class="orbit-container">
+        <div class="orbit-center">Cloud<br/>Stack</div>
+
+        <!-- Ring 1 -->
+        <div class="orbit-ring ring1">
+          <div class="ring1-item">
+            <div class="orbit-icon">🐳</div>
+          </div>
+          <div class="ring1-item">
+            <div class="orbit-icon">☁️</div>
+          </div>
+          <div class="ring1-item">
+            <div class="orbit-icon">⚙️</div>
+          </div>
+          <div class="ring1-item">
+            <div class="orbit-icon">🔧</div>
+          </div>
+        </div>
+
+        <!-- Ring 2 -->
+        <div class="orbit-ring ring2">
+          <div class="ring2-item">
+            <div class="orbit-icon orbit-icon2" style="width:30px;height:30px;font-size:14px;">🗄️</div>
+          </div>
+          <div class="ring2-item">
+            <div class="orbit-icon orbit-icon2" style="width:30px;height:30px;font-size:14px;">🔒</div>
+          </div>
+          <div class="ring2-item">
+            <div class="orbit-icon orbit-icon2" style="width:30px;height:30px;font-size:14px;">📊</div>
+          </div>
+          <div class="ring2-item">
+            <div class="orbit-icon orbit-icon2" style="width:30px;height:30px;font-size:14px;">🌐</div>
+          </div>
+          <div class="ring2-item">
+            <div class="orbit-icon orbit-icon2" style="width:30px;height:30px;font-size:14px;">🤖</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:180px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          {["Docker","AWS","Kubernetes","Terraform","PostgreSQL","GitHub Actions","Linux"].map ? "" : ""}
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">Docker</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">AWS (EC2, S3, RDS)</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">Kubernetes</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">GitHub Actions</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">Terraform</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">PostgreSQL</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;background:#C9A84C;border-radius:50%;flex-shrink:0"></div><span style="font-size:13px;color:#AAA;">Linux</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="color:#555;font-size:12px;margin-top:16px;">💡 Icons rotieren kontinuierlich — hover stoppt die Animation</p>
+  </div>
+
+  <!-- ── OPTION 4: STATS + CERT ── -->
+  <div class="card">
+    <div class="card-label">Option 4</div>
+    <div class="card-title">Stats + Zertifikat</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">AWS Services</div>
+        <div class="stat-sub">↑ EC2 · S3 · RDS</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">99.9</div>
+        <div class="stat-label">Uptime %</div>
+        <div class="stat-sub">↑ Last 30 days</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:99%;animation-delay:0.3s"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">12</div>
+        <div class="stat-label">CI/CD Pipelines</div>
+        <div class="stat-sub">↑ GitHub Actions</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:60%;animation-delay:0.5s"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Certification</div>
+        <div class="stat-sub">↑ EDB Postgres AI</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;animation-delay:0.7s"></div></div>
+      </div>
+    </div>
+
+    <!-- Cert Card -->
+    <div class="cert-card">
+      <div class="cert-badge">🐘</div>
+      <div class="cert-info">
+        <h3>EDB Postgres AI Database Essentials</h3>
+        <p>EnterpriseDB · Cloud & DevOps · 2025</p>
+        <span class="cert-tag">✓ Verified Certificate</span>
+      </div>
+    </div>
+    <p style="color:#555;font-size:12px;margin-top:12px;">💡 Zahlen zählen animiert hoch beim Scrollen</p>
+  </div>
+
+</div>
+
+<p style="text-align:center;color:#333;font-size:12px;margin-top:48px;letter-spacing:0.2em;">OPEN localhost:3001/preview.html</p>
+
+</body>
+</html>
