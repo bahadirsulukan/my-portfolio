@@ -968,6 +968,149 @@ function Card({ title, eyebrow, children, className = "" }: {
 }
 
 // ─────────────────────────────────────────────
+// CONTACT FORM
+// ─────────────────────────────────────────────
+
+const fieldStyle: React.CSSProperties = {
+  width: "100%",
+  background: "#111",
+  border: "1px solid rgba(201,168,76,0.22)",
+  borderRadius: "8px",
+  padding: "12px 14px",
+  color: "#F0EAD6",
+  fontSize: "15px",
+  fontFamily: "inherit",
+  outline: "none",
+  transition: "border-color 0.2s, background 0.2s",
+};
+
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  color: "#888",
+  fontSize: "11px",
+  textTransform: "uppercase",
+  letterSpacing: "0.2em",
+  marginBottom: "8px",
+  textAlign: "left",
+};
+
+function ContactForm() {
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<{ kind: "idle" | "sent" | "error"; text?: string }>({ kind: "idle" });
+
+  const focus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.currentTarget.style.borderColor = "#C9A84C";
+    e.currentTarget.style.background = "#141414";
+  };
+  const blur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.currentTarget.style.borderColor = "rgba(201,168,76,0.22)";
+    e.currentTarget.style.background = "#111";
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (sending) return;
+
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setSending(true);
+    setStatus({ kind: "idle" });
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setStatus({ kind: "error", text: json.error ?? "Could not send the message. Please try again." });
+        return;
+      }
+      form.reset();
+      setStatus({ kind: "sent", text: "Thanks — your message is on its way. I'll get back to you soon." });
+    } catch {
+      setStatus({ kind: "error", text: "Network error. Please check your connection and try again." });
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit} noValidate style={{ maxWidth: "560px", margin: "0 auto", textAlign: "left" }}>
+      <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        <div>
+          <label htmlFor="cf-name" style={labelStyle}>Name</label>
+          <input id="cf-name" name="name" type="text" required autoComplete="name"
+            maxLength={100} placeholder="Your name"
+            style={fieldStyle} onFocus={focus} onBlur={blur} />
+        </div>
+        <div>
+          <label htmlFor="cf-email" style={labelStyle}>Email</label>
+          <input id="cf-email" name="email" type="email" required autoComplete="email"
+            maxLength={200} placeholder="you@example.com"
+            style={fieldStyle} onFocus={focus} onBlur={blur} />
+        </div>
+      </div>
+
+      <div style={{ marginTop: "16px" }}>
+        <label htmlFor="cf-message" style={labelStyle}>Message</label>
+        <textarea id="cf-message" name="message" required rows={5}
+          maxLength={4000} placeholder="What would you like to talk about?"
+          style={{ ...fieldStyle, resize: "vertical", lineHeight: 1.6 }}
+          onFocus={focus} onBlur={blur} />
+      </div>
+
+      {/* Honeypot — hidden from people, irresistible to bots. */}
+      <div aria-hidden style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+        <label htmlFor="cf-company">Company</label>
+        <input id="cf-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <button type="submit" disabled={sending} style={{
+        marginTop: "20px",
+        width: "100%",
+        padding: "14px 28px",
+        background: sending ? "rgba(201,168,76,0.35)" : "linear-gradient(135deg, #C9A84C, #FFD700)",
+        border: "none",
+        borderRadius: "8px",
+        color: "#000",
+        fontWeight: 700,
+        fontSize: "14px",
+        letterSpacing: "0.05em",
+        cursor: sending ? "wait" : "pointer",
+        transition: "transform 0.2s, box-shadow 0.2s",
+        fontFamily: "inherit",
+      }}
+        onMouseEnter={e => {
+          if (sending) return;
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 12px 30px rgba(201,168,76,0.3)";
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = "none";
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        {sending ? "Sending…" : "Send message"}
+      </button>
+
+      {/* Announced to screen readers as it changes, not just shown. */}
+      <p role="status" aria-live="polite" style={{
+        minHeight: "20px",
+        margin: "14px 0 0",
+        fontSize: "13px",
+        textAlign: "center",
+        color: status.kind === "error" ? "#E5A0A0" : "#C9A84C",
+      }}>
+        {status.text ?? ""}
+      </p>
+    </form>
+  );
+}
+
+// ─────────────────────────────────────────────
 // AMBIENT GLOW  (parallax background accent)
 // ─────────────────────────────────────────────
 
@@ -1905,16 +2048,26 @@ export default function Home() {
                 <h2 style={{ fontWeight: 900, fontSize: "clamp(32px,5vw,52px)", margin: "0 0 16px", color: "#F0EAD6" }}>
                   Get in <span style={{ background: goldGrad, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Touch</span>
                 </h2>
-                <p style={{ color: "#666", fontSize: "17px", maxWidth: "480px", margin: "0 auto 40px", lineHeight: 1.7 }}>
+                <p style={{ color: "#666", fontSize: "17px", maxWidth: "480px", margin: "0 auto 36px", lineHeight: 1.7 }}>
                   Open to new opportunities, collaborations, and challenging projects.
                 </p>
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "14px" }}>
+
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <ContactForm />
+                </div>
+
+                {/* Secondary routes — the form is the primary one now */}
+                <div style={{
+                  display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "14px",
+                  marginTop: "40px", paddingTop: "32px",
+                  borderTop: "1px solid rgba(201,168,76,0.12)",
+                  position: "relative", zIndex: 1,
+                }}>
                   {[
-                    { label: "E-Mail", href: "mailto:bahadirsulukan@gmail.com", img: "/32px-Gmail_icon_(2020).svg.png", primary: true },
                     { label: "LinkedIn", href: "https://linkedin.com/in/bahadirsulukan", img: "/LI-In-Bug.png", primary: false },
                     { label: "GitHub", href: "https://github.com/bahadirsulukan", img: "/github-mark.png", primary: false, invert: true },
                   ].map(btn => (
-                    <a key={btn.label} href={btn.href} target={btn.href.startsWith("mailto") ? undefined : "_blank"} rel="noreferrer" style={{
+                    <a key={btn.label} href={btn.href} target="_blank" rel="noreferrer" style={{
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "10px",
